@@ -1,0 +1,6 @@
+{
+  "name": "NARmusic",
+  "description": "Progressive Web App (PWA) Pemutar Musik Modern & Profesional dengan Penyimpanan Offline, Spotify Embed, Equalizer, Visualizer, dan File System Access.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

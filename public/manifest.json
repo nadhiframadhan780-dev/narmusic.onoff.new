@@ -1,0 +1,76 @@
+{
+  "id": "/",
+  "name": "NARmusic",
+  "short_name": "NARmusic",
+  "description": "Pemutar Musik Modern PWA dengan Penyimpanan Offline, Spotify Embed & Equalizer Web Audio API.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B1F1E",
+  "theme_color": "#14B8A6",
+  "categories": ["music", "audio", "entertainment", "utilities"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Beranda",
+      "short_name": "Beranda",
+      "description": "Buka Beranda NARmusic",
+      "url": "/#beranda",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Pustaka Musik",
+      "short_name": "Pustaka",
+      "description": "Lihat koleksi lagu Anda",
+      "url": "/#pustaka",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tempel Link Spotify",
+      "short_name": "Spotify",
+      "description": "Tambah lagu dari link Spotify",
+      "url": "/#spotify",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "name": "Audio Files",
+      "accept": {
+        "audio/mpeg": [".mp3"],
+        "audio/mp4": [".m4a"],
+        "audio/wav": [".wav"],
+        "audio/ogg": [".ogg"],
+        "audio/flac": [".flac"],
+        "audio/aac": [".aac"]
+      }
+    }
+  ]
+}
