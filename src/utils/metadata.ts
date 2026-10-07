@@ -1,4 +1,5 @@
 import jsmediatags from 'jsmediatags';
+import { getAutoLyrics } from './lyricsService';
 
 export interface ParsedAudioMetadata {
   title: string;
@@ -6,7 +7,7 @@ export interface ParsedAudioMetadata {
   album: string;
   duration: number;
   pictureBlob: Blob | null;
-  lyrics?: string;
+  lyrics: string;
 }
 
 // Koleksi gradien tema tosca / cyan / mint untuk thumbnail otomatis
@@ -251,18 +252,21 @@ export async function parseAudioFileMetadata(file: File | Blob, defaultFileName:
   return new Promise((resolve) => {
     try {
       jsmediatags.read(file, {
-        onSuccess: (tagResult) => {
+        onSuccess: async (tagResult) => {
           const tags = tagResult.tags || {};
           const title = (tags.title && String(tags.title).trim()) || cleanFileName || 'Lagu Tanpa Judul';
           const artist = (tags.artist && String(tags.artist).trim()) || 'Artis Tidak Diketahui';
           const album = (tags.album && String(tags.album).trim()) || 'Album Tunggal';
 
-          let lyrics: string | undefined;
+          let rawLyrics: string | undefined;
           if (tags.lyrics && typeof tags.lyrics === 'object' && tags.lyrics.lyrics) {
-            lyrics = tags.lyrics.lyrics;
+            rawLyrics = tags.lyrics.lyrics;
           } else if (typeof tags.lyrics === 'string') {
-            lyrics = tags.lyrics;
+            rawLyrics = tags.lyrics;
           }
+
+          // Otomatis cari atau hasilkan lirik lagu secara akurat
+          const lyricsResult = await getAutoLyrics(title, artist, rawLyrics);
 
           // Ambil gambar cover (APIC tag)
           let pictureBlob: Blob | null = null;
@@ -281,28 +285,38 @@ export async function parseAudioFileMetadata(file: File | Blob, defaultFileName:
             album,
             duration,
             pictureBlob,
-            lyrics,
+            lyrics: lyricsResult.lyrics,
           });
         },
-        onError: () => {
+        onError: async () => {
           // Fallback bila ID3 tag tidak ada / rusak
+          const title = cleanFileName || 'Lagu Tanpa Judul';
+          const artist = 'Artis Tidak Diketahui';
+          const lyricsResult = await getAutoLyrics(title, artist);
           resolve({
-            title: cleanFileName || 'Lagu Tanpa Judul',
-            artist: 'Artis Tidak Diketahui',
+            title,
+            artist,
             album: 'Lokal',
             duration,
             pictureBlob: null,
+            lyrics: lyricsResult.lyrics,
           });
         },
       });
     } catch {
-      resolve({
-        title: cleanFileName || 'Lagu Tanpa Judul',
-        artist: 'Artis Tidak Diketahui',
-        album: 'Lokal',
-        duration,
-        pictureBlob: null,
-      });
+      (async () => {
+        const title = cleanFileName || 'Lagu Tanpa Judul';
+        const artist = 'Artis Tidak Diketahui';
+        const lyricsResult = await getAutoLyrics(title, artist);
+        resolve({
+          title,
+          artist,
+          album: 'Lokal',
+          duration,
+          pictureBlob: null,
+          lyrics: lyricsResult.lyrics,
+        });
+      })();
     }
   });
 }

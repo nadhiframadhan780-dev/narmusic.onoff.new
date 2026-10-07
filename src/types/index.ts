@@ -77,4 +77,6 @@ export interface ToastMessage {
   message?: string;
   type: 'info' | 'success' | 'warning' | 'error';
   duration?: number;
+  actionLabel?: string;
+  onAction?: () => void;
 }

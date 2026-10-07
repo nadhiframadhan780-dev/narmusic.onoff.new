@@ -33,6 +33,7 @@ export const FullPlayer: React.FC = () => {
     setIsQueueOpen,
     sleepTimerRemaining,
     settings,
+    downloadSongAudio,
   } = useMusic();
 
   const [isEqOpen, setIsEqOpen] = useState(false);
@@ -362,6 +363,19 @@ export const FullPlayer: React.FC = () => {
               </svg>
               {sleepTimerRemaining !== null ? formatTime(sleepTimerRemaining) : 'Timer'}
             </button>
+
+            {currentSong && currentSong.sourceType !== 'spotify' && (
+              <button
+                onClick={() => downloadSongAudio(currentSong)}
+                className="px-3 py-1.5 rounded-xl bg-white hover:bg-teal-50 text-xs font-semibold text-teal-800 border border-teal-200/80 shadow-sm flex items-center gap-1.5 transition active:scale-95"
+                title="Download lagu ini ke file audio laptop/HP"
+              >
+                <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Unduh Lagu
+              </button>
+            )}
 
             {/* Playback speed toggle */}
             <div className="relative">

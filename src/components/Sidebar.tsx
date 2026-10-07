@@ -73,14 +73,11 @@ export const Sidebar: React.FC = () => {
       <aside className="hidden md:flex flex-col w-64 h-screen bg-white/95 backdrop-blur-xl border-r border-teal-500/20 p-4 pb-28 text-[#0F2F2C] select-none flex-shrink-0">
         {/* Brand Header */}
         <div className="flex items-center gap-3 px-2 py-3 mb-4">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#06B6D4] via-[#14B8A6] to-[#0D9488] flex items-center justify-center shadow-lg shadow-teal-500/25">
-            {/* Inline SVG Logo Soundwave & Note */}
-            <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19V6l12-3v13" />
-              <circle cx="6" cy="18" r="3" fill="currentColor" stroke="none" />
-              <circle cx="18" cy="15" r="3" fill="currentColor" stroke="none" />
-            </svg>
-          </div>
+          <img
+            src="/logo.png"
+            alt="NARmusic Logo"
+            className="w-11 h-11 rounded-2xl object-cover shadow-md shadow-teal-500/25 border border-teal-200"
+          />
           <div>
             <h1 className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] bg-clip-text text-transparent">
               NARmusic

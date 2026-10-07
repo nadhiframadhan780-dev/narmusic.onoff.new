@@ -18,6 +18,7 @@ export const LibraryView: React.FC = () => {
     showToast,
     settings,
     updateSettings,
+    downloadSongAudio,
   } = useMusic();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -278,6 +279,17 @@ export const LibraryView: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </button>
+                    {song.sourceType !== 'spotify' && (
+                      <button
+                        onClick={() => downloadSongAudio(song)}
+                        className="p-1 hover:text-teal-600 transition"
+                        title="Download file audio ke HP / Laptop"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </button>
+                    )}
                     <button
                       onClick={() => {
                         setSongToEdit(song);
@@ -421,6 +433,19 @@ export const LibraryView: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                       </svg>
                     </button>
+
+                    {/* Download Audio */}
+                    {song.sourceType !== 'spotify' && (
+                      <button
+                        onClick={() => downloadSongAudio(song)}
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-teal-600 transition"
+                        title="Unduh file audio ke perangkat (Laptop/HP)"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               );

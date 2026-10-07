@@ -4,16 +4,19 @@
  * File audio & artwork tersimpan di IndexedDB browser sehingga 100% offline-ready
  */
 
-const CACHE_NAME = 'narmusic-cache-v1';
+const CACHE_NAME = 'narmusic-cache-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon.svg',
+  '/logo.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/favicon.png',
+  '/apple-touch-icon.png',
   '/pwa-192x192.png',
   '/pwa-512x512.png',
-  '/pwa-maskable-512x512.png',
-  '/apple-touch-icon.png'
+  '/pwa-maskable-512x512.png'
 ];
 
 // Install: Cache aset penting dasar

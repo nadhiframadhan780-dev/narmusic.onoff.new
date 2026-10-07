@@ -13,22 +13,22 @@ export const IOSInstallModal: React.FC<IOSInstallModalProps> = ({ isOpen, onClos
       <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-2xl border border-teal-500/20 text-[#0F2F2C]">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#06B6D4] to-[#14B8A6] flex items-center justify-center text-white shadow-md">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-            </div>
+            <img
+              src="/logo.png"
+              alt="NARmusic Icon"
+              className="w-12 h-12 rounded-2xl object-cover shadow-md border border-teal-200"
+            />
             <div>
-              <h3 className="font-bold text-base">Pasang di iPhone / iPad</h3>
-              <p className="text-xs text-teal-600">Jadikan NARmusic Aplikasi PWA</p>
+              <h3 className="font-extrabold text-base leading-tight">Pasang di iPhone / iPad</h3>
+              <p className="text-xs text-teal-600 font-medium">Aplikasi NARmusic Fullscreen</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-full text-gray-400 hover:text-gray-600"
+            className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>

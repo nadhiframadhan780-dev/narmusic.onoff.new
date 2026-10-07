@@ -61,13 +61,11 @@ export const Header: React.FC = () => {
       <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-teal-500/15 px-4 sm:px-6 py-3 flex items-center justify-between text-[#0F2F2C]">
         {/* Mobile Brand Mark */}
         <div className="flex md:hidden items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#06B6D4] to-[#14B8A6] flex items-center justify-center text-white shadow-md">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19V6l12-3v13" />
-              <circle cx="6" cy="18" r="2.5" fill="currentColor" stroke="none" />
-              <circle cx="18" cy="15" r="2.5" fill="currentColor" stroke="none" />
-            </svg>
-          </div>
+          <img
+            src="/logo.png"
+            alt="NARmusic"
+            className="w-9 h-9 rounded-xl object-cover shadow-sm border border-teal-200"
+          />
           <span className="font-extrabold text-base tracking-tight bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] bg-clip-text text-transparent">
             NARmusic
           </span>

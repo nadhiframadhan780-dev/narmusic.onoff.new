@@ -89,6 +89,7 @@ interface MusicContextType {
   deleteSong: (songId: string) => Promise<void>;
   toggleFavorite: (songId: string) => void;
   updateSongLyrics: (songId: string, lyrics: string) => void;
+  downloadSongAudio: (song: Song) => Promise<void>;
 
   // Playlists CRUD
   createPlaylist: (name: string, description?: string) => Playlist;
@@ -858,8 +859,42 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (currentSong && currentSong.id === songId) {
       setCurrentSong((prev) => (prev ? { ...prev, lyrics } : null));
     }
-    showToast('Lirik Tersimpan', '', 'success');
+    showToast('Lirik Tersimpan', 'Lirik lagu telah diperbarui', 'success');
   }, [currentSong, showToast]);
+
+  const downloadSongAudio = useCallback(async (song: Song) => {
+    if (song.sourceType === 'spotify') {
+      showToast('Informasi Spotify', 'Lagu Spotify berhak cipta DRM dan tidak dapat diunduh ke file perangkat.', 'warning');
+      return;
+    }
+    try {
+      const blob = await getAudioFile(song.id);
+      if (!blob) {
+        showToast('File Tidak Ditemukan', 'File audio belum tersimpan di IndexedDB.', 'error');
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const cleanTitle = song.title.replace(/[\\/:*?"<>|]/g, '_');
+      const cleanArtist = song.artist.replace(/[\\/:*?"<>|]/g, '_');
+      let ext = 'mp3';
+      if (song.mimeType?.includes('wav')) ext = 'wav';
+      else if (song.mimeType?.includes('ogg')) ext = 'ogg';
+      else if (song.mimeType?.includes('flac')) ext = 'flac';
+      else if (song.mimeType?.includes('m4a') || song.mimeType?.includes('aac')) ext = 'm4a';
+      
+      a.download = `${cleanArtist} - ${cleanTitle}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Download Berhasil', `File "${song.title}" berhasil diunduh ke perangkat Anda.`, 'success');
+    } catch (err) {
+      console.error('Gagal mengunduh audio:', err);
+      showToast('Download Gagal', 'Terjadi kesalahan saat mengekspor file audio.', 'error');
+    }
+  }, [showToast]);
 
   // Playlist Operations
   const createPlaylist = useCallback((name: string, description?: string): Playlist => {
@@ -1118,6 +1153,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     deleteSong,
     toggleFavorite,
     updateSongLyrics,
+    downloadSongAudio,
 
     createPlaylist,
     updatePlaylist,
